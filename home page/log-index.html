@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ userName: 'Group 11' }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Screen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, <span x-text="userName"></span>!</h1>
+        <nav>
+            <ul>
+                <li><a href="#home" class="link">Home Page</a></li>
+                <li><a href="new-client.html" class="link">Add New Client</a></li>
+                <li><a href="machine-learning.html" class="link">Machine Learning</a></li>
+                <li><a href="customer-interaction.html" class="link">Customer Interaction</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <script src="https://unpkg.com/alpinejs" defer></script>
+</body>
+</html>

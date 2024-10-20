@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Client</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+
+    <div x-data="app()">
+        <h1>Customer Churn Data</h1>
+        <button @click="fetchData()">Load Data</button>
+        <table>
+          <thead>
+            <tr>
+              <th>Branch</th>
+              <th>Customer ID</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Customer Type</th>
+              <th>Credit Score</th>
+              <th>Has Credit Card</th>
+              <th>Active Member</th>
+              <th>Product Category</th>
+              <th>Number of Products</th>
+              <th>Tax Amount</th>
+              <th>Price</th>
+              <th>Total Amount</th>
+              <th>Ratings</th>
+              <th>Customer Churn</th>
+              <th>Tenure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="customer in customers" :key="customer.customer_id">
+              <tr>
+                <td x-text="customer.branch"></td>
+                <td x-text="customer.customer_id"></td>
+                <td x-text="customer.gender"></td>
+                <td x-text="customer.age"></td>
+                <td x-text="customer.customer_type"></td>
+                <td x-text="customer.credit_score"></td>
+                <td x-text="customer.has_creditcard"></td>
+                <td x-text="customer.is_active_member"></td>
+                <td x-text="customer.product_category"></td>
+                <td x-text="customer.number_of_products"></td>
+                <td x-text="customer.tax_amount"></td>
+                <td x-text="customer.price"></td>
+                <td x-text="customer.total_amount"></td>
+                <td x-text="customer.ratings"></td>
+                <td x-text="customer.customer_churn"></td>
+                <td x-text="customer.tenure"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+
+
+    <div class="container">
+        <h1>Add New Client</h1>
+        <form action="submit-client.php" method="POST" class="client-form">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+            
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone">
+            
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4"></textarea>
+            
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+            
+            <label for="company">Company Name:</label>
+            <input type="text" id="company" name="company">
+            
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+            
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

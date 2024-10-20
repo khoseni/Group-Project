@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Client</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.1/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="trial.css">
+
+</head>
+<body x-data="app()">
+  <div>
+    <h1>Customer Churn Dataset</h1>
+    <button onclick="window.location.href='load-data.html'">Load Data</button>
+    
+    <h2>Add New Customer</h2>
+    <form @submit.prevent="handleSubmit">
+      <label for="branch">Branch:</label>
+      <input type="text" id="branch" x-model="newCustomer.branch" required>
+      
+      <label for="gender">Gender:</label>
+      <input type="text" id="gender" x-model="newCustomer.gender" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" x-model="newCustomer.age" required>
+
+      <label for="customer_type">Customer Type:</label>
+      <input type="text" id="customer_type" x-model="newCustomer.customer_type" required>
+
+      <label for="credit_score">Credit Score:</label>
+      <input type="number" id="credit_score" x-model="newCustomer.credit_score" required>
+
+      <label for="has_creditcard">Has Credit Card:</label>
+      <input type="number" id="has_creditcard" x-model="newCustomer.has_creditcard" required>
+
+      <label for="is_active_member">Active Member:</label>
+      <input type="number" id="is_active_member" x-model="newCustomer.is_active_member" required>
+
+      <label for="product_category">Product Category:</label>
+      <input type="text" id="product_category" x-model="newCustomer.product_category" required>
+
+      <label for="number_of_products">Number of Products:</label>
+      <input type="number" id="number_of_products" x-model="newCustomer.number_of_products" required>
+
+      <label for="tax_amount">Tax Amount:</label>
+      <input type="number" step="0.01" id="tax_amount" x-model="newCustomer.tax_amount" required>
+
+      <label for="price">Price:</label>
+      <input type="number" step="0.01" id="price" x-model="newCustomer.price" required>
+
+      <label for="total_amount">Total Amount:</label>
+      <input type="number" step="0.01" id="total_amount" x-model="newCustomer.total_amount" required>
+
+      <label for="ratings">Ratings:</label>
+      <input type="number" step="0.1" id="ratings" x-model="newCustomer.ratings" required>
+
+      <label for="customer_churn">Customer Churn:</label>
+      <input type="number" id="customer_churn" x-model="newCustomer.customer_churn" required>
+
+      <label for="tenure">Tenure:</label>
+      <input type="number" id="tenure" x-model="newCustomer.tenure" required>
+
+      <button type="submit">Add Customer</button>
+    </form>
+
+ <!--   <table>
+      <thead>
+        <tr>
+          <th>Branch</th>
+          <th>Customer ID</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Customer Type</th>
+          <th>Credit Score</th>
+          <th>Has Credit Card</th>
+          <th>Active Member</th>
+          <th>Product Category</th>
+          <th>Number of Products</th>
+          <th>Tax Amount</th>
+          <th>Price</th>
+          <th>Total Amount</th>
+          <th>Ratings</th>
+          <th>Customer Churn</th>
+          <th>Tenure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="customer in customers" :key="customer.customer_id">
+          <tr>
+            <td x-text="customer.branch"></td>
+            <td x-text="customer.customer_id"></td>
+            <td x-text="customer.gender"></td>
+            <td x-text="customer.age"></td>
+            <td x-text="customer.customer_type"></td>
+            <td x-text="customer.credit_score"></td>
+            <td x-text="customer.has_creditcard"></td>
+            <td x-text="customer.is_active_member"></td>
+            <td x-text="customer.product_category"></td>
+            <td x-text="customer.number_of_products"></td>
+            <td x-text="customer.tax_amount"></td>
+            <td x-text="customer.price"></td>
+            <td x-text="customer.total_amount"></td>
+            <td x-text="customer.ratings"></td>
+            <td x-text="customer.customer_churn"></td>
+            <td x-text="customer.tenure"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>-->
+
+  <script>
+    function app() {
+      return {
+        customers: [],
+        newCustomer: {
+          branch: '',
+          gender: '',
+          age: '',
+          customer_type: '',
+          credit_score: '',
+          has_creditcard: '',
+          is_active_member: '',
+          product_category: '',
+          number_of_products: '',
+          tax_amount: '',
+          price: '',
+          total_amount: '',
+          ratings: '',
+          customer_churn: '',
+          tenure: ''
+        },
+
+        async fetchData() {
+          try {
+            const response = await axios.get('http://localhost:3730/api/customers');
+            this.customers = response.data;
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        },
+
+        async addCustomer() {
+          // Generate a random customer ID starting with "15" followed by 6 random digits
+          const customerId = `15${Math.floor(100000 + Math.random() * 900000)}`;
+          
+          // Add the new customer with the generated ID
+          const customerWithId = { ...this.newCustomer, customer_id: customerId };
+
+          try {
+            await axios.post('http://localhost:3730/api/customers', customerWithId);
+            this.fetchData(); // Refresh the customer list after adding
+            // Clear form fields
+            this.newCustomer = {
+              branch: '',
+              gender: '',
+              age: '',
+              customer_type: '',
+              credit_score: '',
+              has_creditcard: '',
+              is_active_member: '',
+              product_category: '',
+              number_of_products: '',
+              tax_amount: '',
+              price: '',
+              total_amount: '',
+              ratings: '',
+              customer_churn: '',
+              tenure: ''
+            };
+          } catch (error) {
+            console.error('Error adding customer:', error);
+          }
+        },
+
+        handleSubmit() {
+          this.addCustomer();
+        }
+      };
+    }
+  </script>
+</body>
+</html>
