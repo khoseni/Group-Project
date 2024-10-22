@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pandas as pd
+import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow all origins
@@ -127,5 +128,6 @@ def predict_all():
         })
     return jsonify(predictions), 200
 
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3730, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 3730)), debug=True)
