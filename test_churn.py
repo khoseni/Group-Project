@@ -1,5 +1,5 @@
 import unittest
-from app import app 
+from churn import app 
 import json
 import os
 
