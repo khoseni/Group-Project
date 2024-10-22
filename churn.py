@@ -6,23 +6,18 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow all origins
 
 # Load the dataset
-dataset = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates().to_dict(orient='records')
+try:
+    dataset = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates().to_dict(orient='records')
+except FileNotFoundError:
+    dataset = []  # Initialize as empty list if file not found
+except pd.errors.EmptyDataError:
+    dataset = []  # Initialize as empty list if file is empty
+except Exception as e:
+    print(f"An error occurred: {e}")
+    dataset = []  # Initialize as empty list for other exceptions
 
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
-
-
-    # Load the dataset
-try:
-    df = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates()
-except FileNotFoundError:
-    df = pd.DataFrame()  # Initialize as empty DataFrame if file not found
-except pd.errors.EmptyDataError:
-    df = pd.DataFrame()  # Initialize as empty DataFrame if file is empty
-except Exception as e:
-    print(f"An error occurred: {e}")
-    df = pd.DataFrame()  # Initialize as empty DataFrame for other exceptions
-
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -46,7 +41,7 @@ def delete_customer(customer_id):
 
 @app.route('/api/churn', methods=['GET'])
 def get_churn_data():
-    churned = sum(1 for customer in dataset if customer['customer_churn'] == 1)
+    churned = sum(1 for customer in dataset if customer.get('customer_churn') == 1)
     not_churned = len(dataset) - churned
     return jsonify({'churned': churned, 'notChurned': not_churned})
 
@@ -64,7 +59,6 @@ def get_age_distribution():
         age_distribution[group] = age_distribution.get(group, 0) + 1
 
     return jsonify(age_distribution)
-    
 
 @app.route('/api/churn-by-branch', methods=['GET'])
 def get_churn_by_branch():
@@ -102,24 +96,28 @@ def get_churn_by_product():
 
 @app.route('/api/monthly-charges', methods=['GET'])
 def get_monthly_charges():
-    return jsonify(dataset) 
+    return jsonify(dataset)
 
 @app.route('/api/tenure-distribution', methods=['GET'])
 def get_tenure_distribution():
-    if df.empty:
+    if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    tenure_distribution = df['tenure'].value_counts().sort_index().to_dict()
+    tenure_distribution = pd.DataFrame(dataset)['tenure'].value_counts().sort_index().to_dict()
     return jsonify(tenure_distribution)
 
 @app.route('/api/credit-score-distribution', methods=['GET'])
 def get_credit_score_distribution():
-    if df.empty:
+    if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    credit_score_distribution = df['credit_score'].value_counts().sort_index().to_dict()
+    credit_score_distribution = pd.DataFrame(dataset)['credit_score'].value_counts().sort_index().to_dict()
     return jsonify(credit_score_distribution)
 
+@app.route('/api/predict-all', methods=['POST'])
+def predict_all():
+    # Add your prediction logic here
+    return jsonify({"message": "Prediction logic not implemented."}), 501
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3730, debug=True)
