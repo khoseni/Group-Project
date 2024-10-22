@@ -120,5 +120,6 @@ def get_credit_score_distribution():
     credit_score_distribution = df['credit_score'].value_counts().sort_index().to_dict()
     return jsonify(credit_score_distribution)
 
+
 if __name__ == '__main__':
-    app.run(port=3730, debug=True)
+    app.run(host='0.0.0.0', port=3730, debug=True)
