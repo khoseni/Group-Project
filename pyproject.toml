@@ -8,6 +8,7 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.10"
 # Add other dependencies here, e.g.:
 flask = "^2.0"
+flask-cors = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
