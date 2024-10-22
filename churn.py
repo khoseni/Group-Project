@@ -1,23 +1,25 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import pandas as pd
 import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow all origins
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Load the dataset
 try:
     dataset = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates().to_dict(orient='records')
 except FileNotFoundError:
-    dataset = []  # Initialize as empty if file not found
+    dataset = []  # Initialize as empty list if file not found
 
+# Save the dataset to CSV
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
 
+# Define the home route to serve index.html
 @app.route('/')
 def home():
-    return jsonify({"message": "Welcome to the Churn Prediction API!"})
+    return render_template('login/index.html')  # Ensure the path includes 'login/'
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -103,8 +105,7 @@ def get_tenure_distribution():
     if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    df = pd.DataFrame(dataset)
-    tenure_distribution = df['tenure'].value_counts().sort_index().to_dict()
+    tenure_distribution = pd.DataFrame(dataset)['tenure'].value_counts().sort_index().to_dict()
     return jsonify(tenure_distribution)
 
 @app.route('/api/credit-score-distribution', methods=['GET'])
@@ -112,22 +113,9 @@ def get_credit_score_distribution():
     if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    df = pd.DataFrame(dataset)
-    credit_score_distribution = df['credit_score'].value_counts().sort_index().to_dict()
+    credit_score_distribution = pd.DataFrame(dataset)['credit_score'].value_counts().sort_index().to_dict()
     return jsonify(credit_score_distribution)
 
-@app.route('/api/predict-all', methods=['POST'])
-def predict_all():
-    predictions = []
-    for customer in dataset:
-        # Mock prediction logic; replace with your model's prediction logic
-        predicted_churn = customer['customer_churn']  # Example: Use your ML model here
-        predictions.append({
-            'customer_id': customer['customer_id'],
-            'predicted_churn': predicted_churn
-        })
-    return jsonify(predictions), 200
-
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 3730)), debug=True)
+    port = int(os.environ.get('PORT', 3730))  # Use the port from the environment variable
+    app.run(host='0.0.0.0', port=port, debug=True)
