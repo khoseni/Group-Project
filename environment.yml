@@ -1,7 +1,6 @@
 name: churn
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - flask
   - flask-cors
@@ -31,7 +30,7 @@ dependencies:
   - libcxx=14.0.6
   - libdeflate=1.17
   - libffi=3.4.4
-  - libgfortran=5.0.0
+  - libgfortran
   - libopenblas=0.3.21
   - libpng=1.6.39
   - libtiff=4.5.1
