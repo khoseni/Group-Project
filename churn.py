@@ -19,7 +19,7 @@ def save_dataset():
 # Define the home route to serve index.html
 @app.route('/')
 def home():
-    return render_template('loggin/index.html')  # Ensure the path includes 'login/'
+    return render_template('loggin/index.html')  
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -117,5 +117,4 @@ def get_credit_score_distribution():
     return jsonify(credit_score_distribution)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 3730))  # Use the port from the environment variable
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=3730, debug=True)
