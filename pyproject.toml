@@ -1,16 +1,16 @@
 [tool.poetry]
-name = "customer churn"  
+name = "your-project-name"
 version = "0.1.0"
-description = ""
-authors = ["group 11 "]
-packages = [{ include = "churn" }] 
+description = "A brief description of your project"
+authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 # Add other dependencies here, e.g.:
 flask = "^2.0"
 flask-cors = "^5.0.0"
-pandas = "^1.5" 
+pandas = "^2.2.3"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
