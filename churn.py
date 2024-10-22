@@ -9,15 +9,14 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})  # Allow all origins
 try:
     dataset = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates().to_dict(orient='records')
 except FileNotFoundError:
-    dataset = []  # Initialize as empty list if file not found
-except pd.errors.EmptyDataError:
-    dataset = []  # Initialize as empty list if file is empty
-except Exception as e:
-    print(f"An error occurred: {e}")
-    dataset = []  # Initialize as empty list for other exceptions
+    dataset = []  # Initialize as empty if file not found
 
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Welcome to the Churn Prediction API!"})
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -41,7 +40,7 @@ def delete_customer(customer_id):
 
 @app.route('/api/churn', methods=['GET'])
 def get_churn_data():
-    churned = sum(1 for customer in dataset if customer.get('customer_churn') == 1)
+    churned = sum(1 for customer in dataset if customer['customer_churn'] == 1)
     not_churned = len(dataset) - churned
     return jsonify({'churned': churned, 'notChurned': not_churned})
 
@@ -103,7 +102,8 @@ def get_tenure_distribution():
     if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    tenure_distribution = pd.DataFrame(dataset)['tenure'].value_counts().sort_index().to_dict()
+    df = pd.DataFrame(dataset)
+    tenure_distribution = df['tenure'].value_counts().sort_index().to_dict()
     return jsonify(tenure_distribution)
 
 @app.route('/api/credit-score-distribution', methods=['GET'])
@@ -111,13 +111,21 @@ def get_credit_score_distribution():
     if not dataset:
         return jsonify({'error': 'No data available'}), 404
 
-    credit_score_distribution = pd.DataFrame(dataset)['credit_score'].value_counts().sort_index().to_dict()
+    df = pd.DataFrame(dataset)
+    credit_score_distribution = df['credit_score'].value_counts().sort_index().to_dict()
     return jsonify(credit_score_distribution)
 
 @app.route('/api/predict-all', methods=['POST'])
 def predict_all():
-    # Add your prediction logic here
-    return jsonify({"message": "Prediction logic not implemented."}), 501
+    predictions = []
+    for customer in dataset:
+        # Mock prediction logic; replace with your model's prediction logic
+        predicted_churn = customer['customer_churn']  # Example: Use your ML model here
+        predictions.append({
+            'customer_id': customer['customer_id'],
+            'predicted_churn': predicted_churn
+        })
+    return jsonify(predictions), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3730, debug=True)
