@@ -19,7 +19,7 @@ def save_dataset():
 # Define the home route to serve index.html
 @app.route('/')
 def home():
-    return render_template('login/index.html')  # Ensure the path includes 'login/'
+    return render_template('loggin/index.html')  # Ensure the path includes 'login/'
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
