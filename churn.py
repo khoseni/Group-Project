@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import pandas as pd
 import os
@@ -16,10 +16,10 @@ except FileNotFoundError:
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
 
-# Define the home route to serve index.html
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('loggin/index.html')  
+    # Serve the index.html file from the root directory
+    return send_from_directory('', 'index.html')
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
