@@ -1,111 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ welcomeMessage: 'Empowering Brands with Customer Retention Insights' }">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Churn App</title>
+    <title>Group 11 Landing Page</title>
     <style>
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
-            justify-content: space-between; /* Space between the content and the image */
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            background-color: #f4f4f4; /* Neutral background color */
-            position: relative;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-
-        /* Content area */
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent background for readability */
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-            max-width: 600px;
-            margin-left: 10%; /* Ensure content stays on the left side */
-            z-index: 1;
-        }
-
         h1 {
-            font-size: 2.5em;
-            color: #333;
             margin-bottom: 20px;
         }
-
-        .tagline {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
-
-        .button-group {
-            margin-top: 20px;
-        }
-
-        /* Button color matches the theme from the image */
-        .btn {
-            text-decoration: none;
-            padding: 15px 30px;
-            margin: 10px;
-            border-radius: 5px;
-            background-color: #ffca28; /* Golden-yellow from the image */
-            color: #333;
-            font-size: 1.2em;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: #ffc107;
-        }
-
-        .footer {
-            margin-top: 30px;
-        }
-
-        .footer a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Image section on the right */
-        .image-container {
-            flex-grow: 1; /* Ensure it fills the available space */
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding-right: 20px;
-        }
-
-        .image-container img {
-            max-width: 100%; /* Ensure image scales with the screen */
-            max-height: 80vh; /* Ensure the image height stays proportional */
-            object-fit: contain; /* Keep the image aspect ratio */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Content block on the left -->
-    <div class="container">
-        <h1 x-text="welcomeMessage"></h1>
-        <p class="tagline">Helping you keep customers engaged and loyal with data-driven insights.</p>
-        <div class="button-group">
-            <a href="loggin.html" class="btn">Login</a>
-            <a href="signup.html" class="btn">Sign Up</a>
-        </div>
-        <div class="footer">
-            <p>Embrace modern, simplified technology</p>
-        </div>
-    </div>
-
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <h1>Welcome to Group 11 Landing Page</h1>
+    <a href="loggin/index.html">
+        <button>Go to Login</button>
+    </a>
 </body>
 </html>
