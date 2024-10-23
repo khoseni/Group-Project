@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="prediction.js" defer></script> <!-- Link to the separate JS file -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .chart-container {
+            width: 100%; /* Use full width of the parent */
+            max-width: 800px; /* Set a reasonable max width for charts */
+            margin-bottom: 30px; /* Space between charts */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center contents */
+        }
+    
+        canvas {
+            width: 100% !important; /* Stretch to fill the container */
+            height: 300px; /* Fixed height for charts */
+        }
+
+        h2 {
+            text-align: center; /* Center the headings */
+            margin-bottom: 10px; /* Space between heading and chart */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Customer Analytics</h1>
+
+    <h2>Customer Churn Distribution</h2>
+    <div class="chart-container">
+
+        <canvas id="churnChart"></canvas>
+    </div>
+
+    <h2>Credit Score Distribution</h2>
+    
+    <div class="chart-container">
+      
+        <canvas id="creditScoreChart"></canvas>
+    </div>
+
+    <h2>Customer Tenure Distribution</h2>
+    
+    <div class="chart-container">
+        
+        <canvas id="tenureChart"></canvas>
+    </div>
+
+    <h2>Churn by Branch</h2>
+    
+    <div class="chart-container">
+    
+        <canvas id="branchChurnChart"></canvas>
+    </div>
+</body>
+</html>

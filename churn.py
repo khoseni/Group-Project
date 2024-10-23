@@ -2,6 +2,9 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import pandas as pd
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -15,6 +18,16 @@ except FileNotFoundError:
 # Save the dataset to CSV
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
+
+
+    @app.before_request
+    def log_request():
+        app.logger.info(f"Request: {request.method} {request.url}")
+
+@app.errorhandler(404)
+def not_found(error):
+    app.logger.error(f"404 Error: {error}")
+    return jsonify({"error": "Not found"}), 404
 
 @app.route('/', methods=['GET'])
 def home():
