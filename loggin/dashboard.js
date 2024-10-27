@@ -1,24 +1,24 @@
 async function fetchChurnData() {
-    const response = await fetch('http://127.0.0.1:3730/api/churn');
+    const response = await fetch('/api/churn');
     const data = await response.json();
     renderChurnChart(data);
 }
 
 async function fetchAgeDistribution() {
-    const response = await fetch('http://127.0.0.1:3730/api/age-distribution');
+    const response = await fetch('/api/age-distribution');
     const data = await response.json();
     renderAgeChart(data);
 }
 
 async function fetchChurnByBranch() {
-    const response = await fetch('http://127.0.0.1:3730/api/churn-by-branch');
+    const response = await fetch('/api/churn-by-branch');
     const data = await response.json();
     renderBranchChart(data);
 }
 
 async function fetchChurnByProduct() {
     try {
-        const response = await fetch('http://127.0.0.1:3730/api/churn-by-product');
+        const response = await fetch('/api/churn-by-product');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         renderChurnByProduct(data); // Updated to use new function
@@ -135,7 +135,7 @@ function renderChurnByProduct(data) {
 }
 
 async function fetchMonthlyCharges() {
-    const response = await fetch('http://127.0.0.1:3730/api/monthly-charges');
+    const response = await fetch('/api/monthly-charges');
     const data = await response.json();
     renderMonthlyChargesHistogram(data);
 }

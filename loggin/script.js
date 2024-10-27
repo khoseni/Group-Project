@@ -24,7 +24,7 @@ function customerData() {
       customers: [],
       async fetchData() {
           try {
-              const response = await axios.get('http://localhost:3730/api/customers');
+              const response = await axios.get('/api/customers');
               this.customers = response.data;
           } catch (error) {
               console.error('Error fetching data:', error);
@@ -32,7 +32,7 @@ function customerData() {
       },
       async deleteCustomer(customerId) {
           try {
-              await axios.post('http://localhost:3730/api/delete', { customerId });
+              await axios.post('/api/delete', { customerId });
               console.log('Customer deleted');
               // Optionally refresh the data or update the UI
           } catch (error) {
@@ -360,7 +360,7 @@ function app() {
         charts: {},
 
         fetchData() {
-            fetch('http://localhost:3730/api/predict-all', {
+            fetch('/api/predict-all', {
                 method: 'POST'
             })
             .then(response => {
