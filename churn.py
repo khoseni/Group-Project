@@ -6,14 +6,16 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='loggin')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Load the dataset
 try:
     dataset = pd.read_csv('archivetempsupermarket_churnData.csv').drop_duplicates().to_dict(orient='records')
+    app.logger.info(f"Loaded dataset with {len(dataset)} records.")
 except FileNotFoundError:
     dataset = []  # Initialize as empty list if file not found
+    app.logger.error("Dataset file not found.")
 
 # Save the dataset to CSV
 def save_dataset():
@@ -28,13 +30,9 @@ def not_found(error):
     app.logger.error(f"404 Error: {error}")
     return jsonify({"error": "Not found"}), 404
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     return send_from_directory('loggin', 'index.html')
-
-@app.route('/<path:path>', methods=['GET'])
-def send_html(path):
-    return send_from_directory('loggin', path)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
