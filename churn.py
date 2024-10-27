@@ -19,20 +19,22 @@ except FileNotFoundError:
 def save_dataset():
     pd.DataFrame(dataset).drop_duplicates().to_csv('archivetempsupermarket_churnData.csv', index=False)
 
-
-    @app.before_request
-    def log_request():
-        app.logger.info(f"Request: {request.method} {request.url}")
+@app.before_request
+def log_request():
+    app.logger.info(f"Request: {request.method} {request.url}")
 
 @app.errorhandler(404)
 def not_found(error):
     app.logger.error(f"404 Error: {error}")
     return jsonify({"error": "Not found"}), 404
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def home():
-    # Serve the index.html file from the root directory
-    return send_from_directory('', 'index.html')
+    return send_from_directory('loggin', 'index.html')
+
+@app.route('/<path:path>', methods=['GET'])
+def send_html(path):
+    return send_from_directory('loggin', path)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
