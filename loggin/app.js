@@ -816,3 +816,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const appInstance = app();
     appInstance.init();
 });
+
+const apiUrl = window.location.hostname === 'localhost' 
+    ? 'http://127.0.0.1:3730/api' 
+    : 'https://https://group-project-23.onrender.com/api';
+
+fetch(`${apiUrl}/churn`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Handle the data for your graphs here
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
