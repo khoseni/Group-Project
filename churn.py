@@ -6,7 +6,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-app = Flask(__name__, static_folder='loggin')
+app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Load the dataset
@@ -30,9 +30,13 @@ def not_found(error):
     app.logger.error(f"404 Error: {error}")
     return jsonify({"error": "Not found"}), 404
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def home():
     return send_from_directory('loggin', 'index.html')
+
+@app.route('/<path:path>', methods=['GET'])
+def send_html(path):
+    return send_from_directory('loggin', path)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
