@@ -137,6 +137,11 @@ def get_credit_score_distribution():
 def predict_all():
     return jsonify({"message": "Prediction completed."})
 
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204  
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3730, debug=True)
