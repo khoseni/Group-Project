@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            
         }
         table {
             width: 100%;
@@ -22,7 +23,7 @@
         th {
             background-color: #f2f2f2;
         }
-        #load-more, #search-btn, #delete-btn {
+        #load-more, #search-btn {
             margin-top: 20px;
             padding: 10px 20px;
             background-color: red;
@@ -33,7 +34,7 @@
         #load-more:disabled {
             background-color: grey;
         }
-        #search-input, #delete-input {
+        #search-input {
             margin-bottom: 10px;
             padding: 5px;
         }
@@ -47,15 +48,11 @@
     
     <input type="text" id="search-input" placeholder="Search by Customer ID">
     <button id="search-btn">Search</button>
-    
-    <input type="text" id="delete-input" placeholder="Delete by Customer ID">
-    <button id="delete-btn">Delete</button>
 
     <table id="data-table">
         <thead>
             <tr>
                 <th>Row Number</th>
-                <th>Invoice ID</th>
                 <th>Branch</th>
                 <th>Customer ID</th>
                 <th>Gender</th>
@@ -65,14 +62,9 @@
                 <th>Has Credit Card</th>
                 <th>Is Active Member</th>
                 <th>Product Category</th>
-                <th>Number of Products</th>
-                <th>Tax Amount</th>
-                <th>Price</th>
-                <th>Total Amount</th>
                 <th>Ratings</th>
                 <th>Customer Churn</th>
                 <th>Tenure</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="data-body">
@@ -82,11 +74,10 @@
 
     <button id="load-more">Load More</button>
 
-    <!-- Template for table rows -->
+    <!-- Template for table rows without delete button -->
     <template id="row-template">
         <tr>
             <td class="row-number"></td>
-            <td class="invoice-id"></td>
             <td class="branch"></td>
             <td class="customer-id"></td>
             <td class="gender"></td>
@@ -96,18 +87,12 @@
             <td class="has-creditcard"></td>
             <td class="is-active-member"></td>
             <td class="product-category"></td>
-            <td class="number-of-products"></td>
-            <td class="tax-amount"></td>
-            <td class="price"></td>
-            <td class="total-amount"></td>
             <td class="ratings"></td>
             <td class="customer-churn"></td>
             <td class="tenure"></td>
-            <td><button class="delete-btn">Delete</button></td>
         </tr>
     </template>
 
-    <!-- Include the JavaScript file -->
     <script src="trial1.js"></script>
 </body>
 </html>

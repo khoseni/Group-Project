@@ -11,9 +11,10 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            
         }
         canvas {
-            max-width: 800px; /* Adjusted max width */
+            max-width: 800px; 
             margin: 20px auto;
         }
         .chart-container {
@@ -26,34 +27,24 @@
 
     <div class="chart-container">
         <h2>Customer Churn Analysis</h2>
-        <canvas id="churnChart"></canvas>
+        <canvas id="churnChart" width="450" height="300"></canvas>
     </div>
 
     <div class="chart-container">
         <h2>Customer Age Distribution</h2>
-        <canvas id="ageChart"></canvas>
+        <canvas id="ageChart" width="450" height="300"></canvas>
     </div>
 
     <div class="chart-container">
         <h2>Churned Customers by Branch</h2>
-        <canvas id="branchChart"></canvas>
+        <canvas id="branchChart" width="550" height="400"></canvas>
     </div>
 
     <div class="chart-container">
         <h2>Product Category vs Customer Churn</h2>
-        <canvas id="productChart" width="800" height="400"></canvas> 
-    </div>
-<!--
-    <div class="chart-container">
-        <h2>Monthly Charges by Churn</h2>
-        <canvas id="monthlyChargesHistogram" width="800" height="400"></canvas>
+        <canvas id="productChart" width="700" height="400"></canvas> 
     </div>
 
-    <div>
-        <h2>Distribution for Each Numerical Feature</h2>
-        <div id="charts-container"></div>
-    </div>
--->
     
     <script src="dashboard.js"></script>
 </body>
